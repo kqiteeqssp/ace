@@ -1,13 +1,15 @@
 package com.info.application;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -20,11 +22,12 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @Description:
  * @Date:Created in 2018/1/19 10:00
  */
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.info" })
 @MapperScan("com.info.dao")
-public class Application {
+public class Application extends SpringBootServletInitializer implements CommandLineRunner {
+    private final Logger logger = Logger.getLogger(Application.class);
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -54,5 +57,10 @@ public class Application {
     @Bean
     public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
+    }
+
+    @Override
+    public void run(String... strings) throws Exception {
+        logger.info("项目启动完成！");
     }
 }

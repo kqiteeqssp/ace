@@ -3,7 +3,7 @@ package com.info.controller.system;
 import com.info.model.User;
 import com.info.service.UserService;
 import com.info.utils.EncryptUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
