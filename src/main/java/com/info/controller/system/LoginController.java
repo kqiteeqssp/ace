@@ -3,7 +3,10 @@ package com.info.controller.system;
 import com.info.model.User;
 import com.info.service.UserService;
 import com.info.utils.EncryptUtils;
+import com.info.utils.IPUtil;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +29,7 @@ import java.util.Map;
  */
 @Controller
 public class LoginController {
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private UserService userService;
     @RequestMapping("/")
@@ -57,6 +61,8 @@ public class LoginController {
         map.put("message", "登录成功");
         // 设置session
         session.setAttribute("loginName", userName);
+        logger.info("当前登录用户ip:"+IPUtil.getRealIp());
+
         String sessionId = session.getId();
         if (session.isNew()) {
             response.getWriter().print("session创建成功，session的id是："+sessionId);
